@@ -1,0 +1,9 @@
+#!/bin/bash
+echo -e "\
+-------------------------------------------------------------------------------\n\
+"less" Search Functions\n\
+\n\
+/	Forward search\n\
+?	Backward search\n\
+n	Repeat previous search\n\
+"

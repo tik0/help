@@ -1,0 +1,43 @@
+#!/bin/bash
+echo -e "\
+-------------------------------------------------------------------------------\n\
+Bash File Testing\n\
+\n\
+-b filename - Block special file  \n\
+-c filename - Special character file  \n\
+-d directoryname - Check for directory existence  \n\
+-e filename - Check for file existence, regardless of type (node, directory, socket, etc.)  \n\
+-f filename - Check for regular file existence not a directory  \n\
+-G filename - Check if file exists and is owned by effective group ID.  \n\
+-g filename - true if file exists and is set-group-id.  \n\
+-k filename - Sticky bit  \n\
+-L filename - Symbolic link  \n\
+-O filename - True if file exists and is owned by the effective user id.  \n\
+-r filename - Check if file is a readable  \n\
+-S filename - Check if file is socket  \n\
+-s filename - Check if file is nonzero size  \n\
+-u filename - Check if file set-user-id bit is set  \n\
+-w filename - Check if file is writable  \n\
+-x filename - Check if file is executable \n\
+\n\
+How to use:\n\
+\n\
+    #!/bin/bash\n\
+    file=./file\n\
+    if [ -e "$file" ]; then\n\
+    	echo "File exists"\n\
+    else \n\
+    	echo "File does not exist"\n\
+    fi \n\
+\n\
+A test expression can be negated by using the `!` operator\n\
+\n\
+    #!/bin/bash\n\
+    file=./file\n\
+    if [ ! -e "$file" ]; then\n\
+    	echo "File does not exist"\n\
+    else \n\
+    	echo "File exists"\n\
+    fi \n\
+"\n\
+

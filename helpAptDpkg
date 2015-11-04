@@ -1,0 +1,6 @@
+#!/bin/bash
+echo -e "\
+dpkg --get-selections | grep -v deinstall - 'Get a list of installed packages'
+\n\
+-------------------------------------------------------------------------------\n\
+"
