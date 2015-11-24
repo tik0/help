@@ -1,5 +1,3 @@
-#!/bin/bash
-echo -e "\
-Form 'https\:\/\/01.org\/sites\/default\/files\/page\/powertop_users_guide_201412\.pdf'\n\
-for (( i=0; i < 3; i++ )); do sudo powertop –time=10 --html; done\n\
-"
+#!helpingHelper
+From 'https\:\/\/01.org\/sites\/default\/files\/page\/powertop_users_guide_201412\.pdf'
+for (( i=0; i < 3; i++ )); do sudo powertop –time=10 --html; done

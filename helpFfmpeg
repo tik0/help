@@ -1,4 +1,2 @@
-#!/bin/bash
-echo -e "\
-ffmpeg -i South.Park.S19E04...flv -vcodec libx264 -acodec copy South.Park.S19E04.mkv \
-"
+#!helpingHelper
+ffmpeg -i South.Park.S19E04...flv -vcodec libx264 -acodec copy South.Park.S19E04.mkv

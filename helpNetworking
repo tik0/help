@@ -1,66 +1,64 @@
-#!/bin/bash
-echo -e "\
-nslookup <IP> - Nameservice lookup\n\
-tracerout <IP> - Tracerout to one IP adress\n\
-\n\
--------------------------------------------------------------------------------\n\
-Setting up some network:\n\
-[start|stop] network-manager - [start|stops] the network manager which configures the interfaces\n\
-service dnsmasq [start|stop] - [start|stops] the a DHCP server\n\
-dhclient <Interface> - Sends a DHCP request on the given interface\n\
-ip addr add <IP>/<MASK> dev <Interface> - Set a static IP adress to a given interface (ip addr add 192.168.0.1/24 dev eth0)\n\
-ifconfig <Interface> hw ether <MAC> - Set a new MAC adress to a given interface (ifconfig eth0 hw ether 00:11:1c:00:29:01)\n\
-\n\
--------------------------------------------------------------------------------\n\
-dnsmasq example config:\n\
-# -- Content of /etc/dnsmasq.conf --\n\
-# Start DHCP server on eth0 with range 192.168.0.50-150/24 with 12 hours lease time\n\
-interface=eth0\n\
-dhcp-range=192.168.0.50,192.168.0.150,255.255.255.0,12h\n\
-\n\
--------------------------------------------------------------------------------\n\
-Start a DHCP Server\n\
-stop network-manager && service avahi-daemon stop && service dnsmasq stop && ifconfig eth0 down && ip addr add 192.168.0.1/24 dev eth0 && ifconfig eth0 up && service dnsmasq start\n\
-\n\
--------------------------------------------------------------------------------\n\
-Reset MAC adress:\n\
-ifconfig eth0 down && ifconfig eth0 hw ether 00:11:1c:00:29:00 && ifconfig eth0 up\n\
-\n\
-\n\
--------------------------------------------------------------------------------\n\
-ping www.google.de -M do -s 1392\n\
-Pakete inspizieren: https://danielmiessler.com/study/tcpdump/\n\
-\n\
-Check:\n\
-ping www.timokorthals.de -M do -s 1432\n\
-PING www.timokorthals.de (62.75.161.171) 1432(1460) bytes of data.\n\
-1440 bytes from euve30609.vserver.de (62.75.161.171): icmp_seq=1 ttl=55 time=18.9 ms\n\
-\n\
---> Set device MTU to 1460 (1432 Data + 28 Byte overhead)\n\
--------------------------------------------------------------------------------\n\
-Gateway information:\n\
-route -n\n\
-netstat -rn\n\
-\n\
--------------------------------------------------------------------------------\n\
-Get speed and other information for eth0:\n\
-ethtool eth0\n\
-\n\
-Set Speed:\n\
-ethtool -s eth0 speed 100 duplex full\n\
-\n\
--------------------------------------------------------------------------------\n\
-Set DNS Server\n\
-\n\
-In the old systems, you could set the nameserver by setting it via 'nameserver <IP>' in the '/etc/resolv.conf'.\n\
-\n\
-In the new systems, you have to set it the following way:\n\
-$ sudo nano /etc/resolvconf/resolv.conf.d/base\n\
-Then put your nameserver list in like so:\n\
-\n\
-nameserver 8.8.8.8\n\
-nameserver 8.8.4.4\n\
-Finally update resolvconf:\n\
-\n\
-$ sudo resolvconf -u\n\
-"
+#!helpingHelper
+nslookup <IP> - Nameservice lookup
+tracerout <IP> - Tracerout to one IP adress
+
+-------------------------------------------------------------------------------
+Setting up some network:
+[start|stop] network-manager - [start|stops] the network manager which configures the interfaces
+service dnsmasq [start|stop] - [start|stops] the a DHCP server
+dhclient <Interface> - Sends a DHCP request on the given interface
+ip addr add <IP>/<MASK> dev <Interface> - Set a static IP adress to a given interface (ip addr add 192.168.0.1/24 dev eth0)
+ifconfig <Interface> hw ether <MAC> - Set a new MAC adress to a given interface (ifconfig eth0 hw ether 00:11:1c:00:29:01)
+
+-------------------------------------------------------------------------------
+dnsmasq example config:
+# -- Content of /etc/dnsmasq.conf --
+# Start DHCP server on eth0 with range 192.168.0.50-150/24 with 12 hours lease time
+interface=eth0
+dhcp-range=192.168.0.50,192.168.0.150,255.255.255.0,12h
+
+-------------------------------------------------------------------------------
+Start a DHCP Server
+stop network-manager && service avahi-daemon stop && service dnsmasq stop && ifconfig eth0 down && ip addr add 192.168.0.1/24 dev eth0 && ifconfig eth0 up && service dnsmasq start
+
+-------------------------------------------------------------------------------
+Reset MAC adress:
+ifconfig eth0 down && ifconfig eth0 hw ether 00:11:1c:00:29:00 && ifconfig eth0 up
+
+
+-------------------------------------------------------------------------------
+ping www.google.de -M do -s 1392
+Pakete inspizieren: https://danielmiessler.com/study/tcpdump/
+
+Check:
+ping www.timokorthals.de -M do -s 1432
+PING www.timokorthals.de (62.75.161.171) 1432(1460) bytes of data.
+1440 bytes from euve30609.vserver.de (62.75.161.171): icmp_seq=1 ttl=55 time=18.9 ms
+
+--> Set device MTU to 1460 (1432 Data + 28 Byte overhead)
+-------------------------------------------------------------------------------
+Gateway information:
+route -n
+netstat -rn
+
+-------------------------------------------------------------------------------
+Get speed and other information for eth0:
+ethtool eth0
+
+Set Speed:
+ethtool -s eth0 speed 100 duplex full
+
+-------------------------------------------------------------------------------
+Set DNS Server
+
+In the old systems, you could set the nameserver by setting it via 'nameserver <IP>' in the '/etc/resolv.conf'.
+
+In the new systems, you have to set it the following way:
+$ sudo nano /etc/resolvconf/resolv.conf.d/base
+Then put your nameserver list in like so:
+
+nameserver 8.8.8.8
+nameserver 8.8.4.4
+Finally update resolvconf:
+
+$ sudo resolvconf -u

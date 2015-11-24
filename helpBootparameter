@@ -1,8 +1,5 @@
-#!/bin/bash
-echo -e "\
-cat /proc/cmdline - Show current boot parameter\n\
+#!helpingHelper
+cat /proc/cmdline - Show current boot parameter
 nano /etc/default/grub && update-grub - Under Ubuntu using grub, change boot parameter/behaviour
-\n\
--------------------------------------------------------------------------------\n\
 
-"
+-------------------------------------------------------------------------------

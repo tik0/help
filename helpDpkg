@@ -1,101 +1,104 @@
-#!/bin/bash
-echo -e "\
--------------------------------------------------------------------------------\n\
-How to interpret the status of dpkg (--list)?:\n\
-dpkg (debian package manager) is the package manager for Ubuntu (debian based\n\
-distributions). dpkg can be used to install packages in Ubuntu. With dpkg, you\n\
-can see the status of various packages like:\n\
-\n\
-the packages are currently installed\n\
-the packages are removed\n\
-the configuration files are present\n\
-marked for removal\n\
-Let’s explore the output of dpkg --list.\n\
-\n\
-$ dpkg --list\n\
-\n\
-The first column corresponds to the status of a package. How to interpret this status.\n\
-Status of every package is represented by three characters xxx\n\
-\n\
-Let’s explore each of the character signify.\n\
-\n\
-First character: The possible value for the first character. The first character\n\
-signifies the desired state, like we (or some user) is marking the package for installation\n\
-\n\
-u: Unknown (an unknown state)\n\
-i: Install (marked for installation)\n\
-r: Remove (marked for removal)\n\
-p: Purge (marked for purging)\n\
-h: Hold\n\
-\n\
-Second Character: The second character signifies the current state, whether it is\n\
-installed or not. The possible values are\n\
-\n\
-n: Not- The package is not installed\n\
-i: Inst -- The package is successfully installed\n\
-c: Cfg-files -- Configuration files are present\n\
-u: Unpacked- The package is stilled unpacked\n\
-f: Failed-cfg- Failed to remove configuration files\n\
-h: Half-inst- The package is only partially installed\n\
-W: trig-aWait\n\
-t: Trig-pend\n\
-Let’s move to the third character\n\
-Third Character: This corresponds to the error state. The possible value include\n\
-\n\
-R: Reinst-required The package must be installed.\n\
-\n\
--------------------------------------------------------------------------------\n\
-What does ii mean?\n\
-\n\
-For detailed information on interpreting the status, you can refer State of a Package. ii corresponds to\n\
-\n\
-i: the package was marked for installation\n\
-i: thepackage is successfully installed in the system\n\
-\n\
--------------------------------------------------------------------------------\n\
-What does pn mean?\n\
-\n\
-For detailed information on interpreting the status, you can refer State of a Package. pn corresponds to\n\
-\n\
-p: the package was marked for purging\n\
-n: the package is not currently installed in the system\n\
-\n\
-In nutshell, it means that the package is completely removed (even the configuration files). Read dpkg: purge versus remove\n\
-\n\
--------------------------------------------------------------------------------\n\
-What does rc mean?\n\
-\n\
-For detailed information on interpreting the status, you can refer State of a Package. rc corresponds to\n\
-\n\
-r: the package was marked for removal\n\
-c: the configuration files are currently present in the system\n\
-\n\
-In nutshell, it means that the package is not completely removed. The configuration files are still present.\n\
-To completely remove a package, refer Remove packages marked as rc.\n\
-\n\
--------------------------------------------------------------------------------\n\
-Remove all packages marked as rc by dpkg:\n\
-\n\
-Let’s see all the packages marked as rc by dpkg. Know more about the state rc. This state means that the configuration files are not yet removed.\n\
-\n\
-$ dpkg --list |grep "^rc" | cut -d " " -f 3 | xargs sudo dpkg --purge\n\
-\n\
--------------------------------------------------------------------------------\n\
-dpkg: purge versus remove\n\
-\n\
-dpkg can be used to install, remove and check the current state of a package. Every package contains the following components\n\
-\n\
-package binaries\n\
-configuration files\n\
-dpkg has two options --remove and --purge. Both these options are used to remove package contents. But there is a significant difference between the two.’\n\
-\n\
-dpkg --remove is used to remove the package binaries. But if there are configuration files, those will not be removed\n\
-\n\
-$ dpkg --remove package_name\n\
-After removing the package, the state of the package becomes un or rc.\n\
-\n\
-dpkg --purge is used to remove the package binaries and the configuration files.\n\
-\n\
-$ dpkg --purge package_name\n\
-After removing the package, the state of the package becomes un or pn.\n\
-"
+#!helpingHelper
+
+-------------------------------------------------------------------------------
+
+dpkg --get-selections | grep -v deinstall - 'Get a list of installed packages'
+
+-------------------------------------------------------------------------------
+How to interpret the status of dpkg (--list)?:
+dpkg (debian package manager) is the package manager for Ubuntu (debian based
+distributions). dpkg can be used to install packages in Ubuntu. With dpkg, you
+can see the status of various packages like:
+
+the packages are currently installed
+the packages are removed
+the configuration files are present
+marked for removal
+Let’s explore the output of dpkg --list.
+
+$ dpkg --list
+
+The first column corresponds to the status of a package. How to interpret this status.
+Status of every package is represented by three characters xxx
+
+Let’s explore each of the character signify.
+
+First character: The possible value for the first character. The first character
+signifies the desired state, like we (or some user) is marking the package for installation
+
+u: Unknown (an unknown state)
+i: Install (marked for installation)
+r: Remove (marked for removal)
+p: Purge (marked for purging)
+h: Hold
+
+Second Character: The second character signifies the current state, whether it is
+installed or not. The possible values are
+
+n: Not- The package is not installed
+i: Inst -- The package is successfully installed
+c: Cfg-files -- Configuration files are present
+u: Unpacked- The package is stilled unpacked
+f: Failed-cfg- Failed to remove configuration files
+h: Half-inst- The package is only partially installed
+W: trig-aWait
+t: Trig-pend
+Let’s move to the third character
+Third Character: This corresponds to the error state. The possible value include
+
+R: Reinst-required The package must be installed.
+
+-------------------------------------------------------------------------------
+What does ii mean?
+
+For detailed information on interpreting the status, you can refer State of a Package. ii corresponds to
+
+i: the package was marked for installation
+i: thepackage is successfully installed in the system
+
+-------------------------------------------------------------------------------
+What does pn mean?
+
+For detailed information on interpreting the status, you can refer State of a Package. pn corresponds to
+
+p: the package was marked for purging
+n: the package is not currently installed in the system
+
+In nutshell, it means that the package is completely removed (even the configuration files). Read dpkg: purge versus remove
+
+-------------------------------------------------------------------------------
+What does rc mean?
+
+For detailed information on interpreting the status, you can refer State of a Package. rc corresponds to
+
+r: the package was marked for removal
+c: the configuration files are currently present in the system
+
+In nutshell, it means that the package is not completely removed. The configuration files are still present.
+To completely remove a package, refer Remove packages marked as rc.
+
+-------------------------------------------------------------------------------
+Remove all packages marked as rc by dpkg:
+
+Let’s see all the packages marked as rc by dpkg. Know more about the state rc. This state means that the configuration files are not yet removed.
+
+$ dpkg --list |grep "^rc" | cut -d " " -f 3 | xargs sudo dpkg --purge
+
+-------------------------------------------------------------------------------
+dpkg: purge versus remove
+
+dpkg can be used to install, remove and check the current state of a package. Every package contains the following components
+
+package binaries
+configuration files
+dpkg has two options --remove and --purge. Both these options are used to remove package contents. But there is a significant difference between the two.’
+
+dpkg --remove is used to remove the package binaries. But if there are configuration files, those will not be removed
+
+$ dpkg --remove package_name
+After removing the package, the state of the package becomes un or rc.
+
+dpkg --purge is used to remove the package binaries and the configuration files.
+
+$ dpkg --purge package_name
+After removing the package, the state of the package becomes un or pn.

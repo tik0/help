@@ -1,0 +1,36 @@
+#!/bin/bash
+# This scipt parses the help messages
+
+if [[ $# == "0" ]]; then
+  echo "This scirpt needs an argument, which points to the help\* script"
+  exit 1
+fi
+
+# Get the name of the calling script
+HELP_FILE=${1}
+
+# Get script name by parent process id
+#PARENT_COMMAND="$(ps -o comm= $PPID)"
+#Get script name by script argument
+PARENT_COMMAND=$(basename ${HELP_FILE})
+
+if [[ "${PARENT_COMMAND}" != help* ]]; then
+  echo "This script can only be called from a help\* script"
+  exit 1  
+fi
+
+file=${HELP_FILE}
+if [ ! -e ]; then
+  echo "This script can only interpret files"
+  exit 1  
+fi
+
+# We are handing the machine readable file over to the echo cmd:
+# - Cat the file
+# - Delete all coment lines starting with #
+# - Replace every newline character '\n' by the regular-expression-newline \n and give it a linefeed \ for bash
+echo -e "$(\
+cat ${HELP_FILE} |\
+grep -ve "^#" |\
+sed ':a;N;$!ba;s/\n\\/ /g'\
+)"

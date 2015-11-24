@@ -1,5 +1,2 @@
-#!/bin/bash
-echo -e "\
-find . -type f \\( -name "*cxx" -o -name "*h" -o -name "*hxx" -o -name "*hpp" -o -name "*c" -o -name "*cpp" \\) | grep CANInterpreter | grep -i mac | xargs -i kdiff3 {} /tmp/murox_dev/project/{}\n\
-\n\
-"
+#!helpingHelper
+find . -type f \\( -name "*cxx" -o -name "*h" -o -name "*hxx" -o -name "*hpp" -o -name "*c" -o -name "*cpp" \\) | grep CANInterpreter | grep -i mac | xargs -i kdiff3 {} /tmp/murox_dev/project/{}

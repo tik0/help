@@ -1,6 +1,3 @@
-#!/bin/bash
-echo -e "\
-Show kernel config:\n\
-less /boot/config-$(uname -r)\n\
-\n\
-"
+#!helpingHelper
+Show kernel config:
+less /boot/config-$(uname -r)
