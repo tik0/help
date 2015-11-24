@@ -42,4 +42,25 @@ Gateway information:\n\
 route -n\n\
 netstat -rn\n\
 \n\
+-------------------------------------------------------------------------------\n\
+Get speed and other information for eth0:\n\
+ethtool eth0\n\
+\n\
+Set Speed:\n\
+ethtool -s eth0 speed 100 duplex full\n\
+\n\
+-------------------------------------------------------------------------------\n\
+Set DNS Server\n\
+\n\
+In the old systems, you could set the nameserver by setting it via 'nameserver <IP>' in the '/etc/resolv.conf'.\n\
+\n\
+In the new systems, you have to set it the following way:\n\
+$ sudo nano /etc/resolvconf/resolv.conf.d/base\n\
+Then put your nameserver list in like so:\n\
+\n\
+nameserver 8.8.8.8\n\
+nameserver 8.8.4.4\n\
+Finally update resolvconf:\n\
+\n\
+$ sudo resolvconf -u\n\
 "
