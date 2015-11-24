@@ -44,3 +44,29 @@ String compare:
     if [[ $s1 == *"$s2"* ]]; then
       echo "${s2}" is included in ${s1}
     fi
+
+    
+-------------------------------------------------------------------------------
+
+C-Style for-loops:
+
+Common for-loop
+    for (( <EXPR1> ; <EXPR2> ; <EXPR3> )); do
+      <LIST>
+    done
+As a special case: without semicolon after ((...))
+    for (( <EXPR1> ; <EXPR2> ; <EXPR3> )) do
+      <LIST>
+    done
+Alternative, historical and undocumented syntax
+    for (( <EXPR1> ; <EXPR2> ; <EXPR3> )) {
+      <LIST>
+    }
+Example 0
+    for ((x = 0 ; x <= 100 ; x++)); do
+      echo "Counter: $x"
+    done
+Example 1
+    for ((x = 0 ; x <= 100 ; x += 10)); do
+      echo "Counter: $x"
+    done
