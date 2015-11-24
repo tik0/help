@@ -21,21 +21,26 @@ Bash File Testing
 
 How to use:
 
-    #!
     file=./file
     if [ -e "$file" ]; then
-    	echo "File exists"
+      echo "File exists"
     else 
-    	echo "File does not exist"
+      echo "File does not exist"
     fi 
 
 A test expression can be negated by using the `!` operator
 
-    #!
     file=./file
     if [ ! -e "$file" ]; then
-    	echo "File does not exist"
+      echo "File does not exist"
     else 
-    	echo "File exists"
+      echo "File exists"
     fi 
 
+String compare:
+
+    s1=helping
+    s2=help
+    if [[ $s1 == *"$s2"* ]]; then
+      echo "${s2}" is included in ${s1}
+    fi
