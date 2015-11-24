@@ -25,6 +25,19 @@ if [ ! -e ]; then
   exit 1  
 fi
 
+# Check for commands working on the help-script
+if [[ $# == "2" ]]; then
+  DO_IT=${2}
+  echo "Yes master, let's do some work on ${HELP_FILE}"
+  if [[ "${DO_IT}" == "edit" ]]; then
+    kate ${HELP_FILE}
+    exit 1
+  else
+    echo "Use some proper command like [edit]"
+    exit 1
+  fi
+fi
+
 # We are handing the machine readable file over to the echo cmd:
 # - Cat the file
 # - Delete all coment lines starting with #
