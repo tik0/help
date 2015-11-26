@@ -1,2 +1,2 @@
-#!helpingHelper
+#!/opt/help/helpingHelper
 ffmpeg -i South.Park.S19E04...flv -vcodec libx264 -acodec copy South.Park.S19E04.mkv

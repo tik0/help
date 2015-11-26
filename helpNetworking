@@ -1,4 +1,4 @@
-#!helpingHelper
+#!/opt/help/helpingHelper
 nslookup <IP> - Nameservice lookup
 tracerout <IP> - Tracerout to one IP adress
 
@@ -19,11 +19,11 @@ dhcp-range=192.168.0.50,192.168.0.150,255.255.255.0,12h
 
 -------------------------------------------------------------------------------
 Start a DHCP Server
-stop network-manager && service avahi-daemon stop && service dnsmasq stop && ifconfig eth0 down && ip addr add 192.168.0.1/24 dev eth0 && ifconfig eth0 up && service dnsmasq start
-
+stop network-manager ; service avahi-daemon stop ; service dnsmasq stop ; ifconfig eth0 down ; ip addr add 192.168.0.1/24 dev eth0 ; ifconfig eth0 up ; service dnsmasq start
+service avahi-daemon stop ; service dnsmasq stop ; ifconfig eth0 down ; stop network-manager 
 -------------------------------------------------------------------------------
 Reset MAC adress:
-ifconfig eth0 down && ifconfig eth0 hw ether 00:11:1c:00:29:00 && ifconfig eth0 up
+ifconfig eth0 down ; ifconfig eth0 hw ether 00:11:1c:00:29:00 && ifconfig eth0 up
 
 
 -------------------------------------------------------------------------------
@@ -62,3 +62,4 @@ nameserver 8.8.4.4
 Finally update resolvconf:
 
 $ sudo resolvconf -u
+

@@ -1,4 +1,4 @@
-#!helpingHelper
+#!/opt/help/helpingHelper
 cat /proc/cmdline - Show current boot parameter
 nano /etc/default/grub && update-grub - Under Ubuntu using grub, change boot parameter/behaviour
 
