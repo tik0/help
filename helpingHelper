@@ -25,25 +25,45 @@ if [ ! -e ]; then
   exit 1  
 fi
 
-# Check for commands working on the help-script
-if [[ $# == "2" ]]; then
-  DO_IT=${2}
-  echo "Yes master, let's do some work on ${HELP_FILE}"
-  if [[ "${DO_IT}" == "edit" ]]; then
-    kate ${HELP_FILE}
-    exit 1
-  else
-    echo "Use some proper command like [edit]"
-    exit 1
-  fi
+# No arguments are given -> Show the help message
+if [[ $# != "2" ]]; then
+  DO_HELP=1
 fi
 
-# We are handing the machine readable file over to the echo cmd:
-# - Cat the file
-# - Delete all coment lines starting with #
-# - Replace every newline character '\n' by the regular-expression-newline \n and give it a linefeed \ for bash
-echo -e "$(\
-cat ${HELP_FILE} |\
-grep -ve "^#" |\
-sed ':a;N;$!ba;s/\n\\/ /g'\
-)"
+# Check for commands working on the help-script
+if [[ $# == "2" || ${DO_HELP} == "1" ]]; then
+  DO_IT=${2}
+  if [[ "${DO_IT}" == "help" || ${DO_HELP} == "1" ]]; then
+    SCRIPT_NAME=$(basename ${HELP_FILE})
+    echo -e "This is the help engine ${0}\n\
+\tYou can run your help-script with the following commands:\n\
+\t\n\
+\t${SCRIPT_NAME} help\t Display this help message\n\
+\t${SCRIPT_NAME} edit\t Edit the script file\n\
+\t${SCRIPT_NAME} show\t Show the script content"
+    exit 0
+  fi
+  if [[ "${DO_IT}" == "edit" ]]; then
+    echo "Yes master, let's do some work on ${HELP_FILE}"
+    if [[ "${EDITOR}" == "" ]]; then
+      echo "Please set the EDITOR environment variable (export EDITOR=/usr/bin/kate)"
+      exit 1
+    else
+      ${EDITOR} ${HELP_FILE}
+      exit 0
+    fi
+  fi
+  if [[ "${DO_IT}" == "show" ]]; then
+    # We are handing the machine readable file over to the echo cmd:
+    # - Cat the file
+    # - Delete all comment lines starting with #
+    # - Replace every newline character '\n' by the regular-expression-newline \n and give it a linefeed \ for bash
+    echo -e "$(\
+    cat ${HELP_FILE} |\
+    grep -ve "^#" |\
+    sed ':a;N;$!ba;s/\n\\/ /g'\
+    )"
+  fi
+  echo "Display the help via '\$ ${HELP_FILE} help'"
+  exit 1
+fi
